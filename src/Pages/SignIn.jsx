@@ -14,7 +14,7 @@ import { apiServices } from '../services/apiServices';
 
 
 export default function SignIn() {
-
+  const navigate = useNavigate()
   const [isLoading, setIsLoading]=useState(false)
   const [errMsg,setErrMsg] =useState("")
   const {setUserToken}=useContext(authContext) 
@@ -24,7 +24,7 @@ export default function SignIn() {
       resolver: zodResolver(schema),
       defaultValues:{
         email:"mohammed@gmail.com",
-        password:"Mohammed123",
+        password:"Mohammed@123",
       }
     })
 
@@ -36,16 +36,20 @@ export default function SignIn() {
 
         const data=await apiServices.signIn(loginData)
 
-        console.log(data)
+        localStorage.setItem("token", data.data.token)
 
-        localStorage.token=data.token;
+        setUserToken(data.data.token)
 
-        setUserToken(data.token)
+        navigate("/") 
 
         
       }catch(error){
-        if(error.message){
-           setErrMsg(error.response.data.error);
+        
+        console.log(error.response)
+
+        if(error.response){
+
+           setErrMsg(error.response.data.errors);
 
         }else{
           setErrMsg(error.message)

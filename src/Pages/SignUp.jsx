@@ -22,23 +22,23 @@ export default function SignUp() {
       defaultValues:{
         name:"Mohammed Khamis",
         email:"mohammed@gmail.com",
-        password:"Mohammed123",
-        rePassword:"Mohammed123",
+        password:"Mohammed@123",
+        rePassword:"Mohammed@123",
         dateOfBirth:'2000-07-12',
         gender:"male"
       }
     })
 
+
+
     // sending data to backend
     async function signUp(registerData){
       setIsLoading(true)
       setErrMsg("")
+
       try{
 
         await apiServices.signUp(registerData)
-        
-        console.log(data)
-        localStorage.token=data.token;
 
         // taoster
         addToast({
@@ -52,8 +52,9 @@ export default function SignUp() {
 
         
       }catch(error){
-        if(error.message){
-           setErrMsg(error.response.data.error);
+
+        if(error.response){
+           setErrMsg(error.response.data.errors);
 
         }else{
           setErrMsg(error.message)
@@ -68,6 +69,9 @@ export default function SignUp() {
       
     }
 
+
+
+
     function geInputProps(label, type, field){
       return {
             variant: 'bordered',
@@ -79,7 +83,6 @@ export default function SignUp() {
     }
 
 
-   
 
   return (
    <form onSubmit={handleSubmit(signUp)}>

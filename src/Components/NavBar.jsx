@@ -15,7 +15,7 @@ import { authContext } from '../contexts/authContext';
 export default function NavBar() {
 
 const navigate =useNavigate()
-const {setUserToken}=useContext(authContext) 
+const {isLoading, userToken , userData,setUserToken}=useContext(authContext) 
 
 
 function logout(){
@@ -28,10 +28,11 @@ function logout(){
   return (
     <HerouiNavBar>
       <NavbarBrand>  
-        <Link to={"/"}> <p className="font-bold text-inherit">LINKOO</p></Link>
+        <Link to={"/"}> <p className="font-bold text-inherit">LINKOO </p></Link>
       </NavbarBrand>
 
-      <NavbarContent as="div" justify="end">
+     {!isLoading && <NavbarContent as="div" justify="end">
+      {userToken ?
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
             <Avatar
@@ -39,9 +40,9 @@ function logout(){
               as="button"
               className="transition-transform"
               color="secondary"
-              name="Jason Hughes"
+              name={userData?.name}
               size="sm"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+              src={userData?.photo}
             />
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
@@ -49,7 +50,7 @@ function logout(){
             <DropdownItem key="profile">
              <Link  className="h-14" to="/profile">
               <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
+              <p className="font-semibold">{userData?.email}</p>
              </Link>
             </DropdownItem>
             
@@ -58,7 +59,9 @@ function logout(){
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-      </NavbarContent>
+        :
+        <></>}
+      </NavbarContent>}
     </HerouiNavBar>
   )
 }

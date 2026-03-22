@@ -1,7 +1,7 @@
 import React, {  useEffect, useState } from 'react'
-import Post from '../Components/Post';
+import Post from '../Components/posts/Post';
 import LoadingScreen from '../Components/LoadingScreen';
-import apiServices from '../services/apiServices'
+import { apiServices } from '../services/apiServices'
 
 
 
@@ -9,19 +9,14 @@ export default function Feed() {
 
   const [posts,setPosts] =useState([])
 
+  async function getPosts(){
+    const {data} =await apiServices.getPosts()
+    setPosts(data.posts)
+  }
 
-   async function getPosts(){
-
-     const data =await apiServices.getPosts()
-     setPosts(data.posts)
-
-    }
-
-useEffect( () =>{
-
-  getPosts()
-
-},[])
+  useEffect( () =>{
+    getPosts()
+  },[])
 
 
 
@@ -30,7 +25,7 @@ useEffect( () =>{
       {
 
         posts.length == 0 ? <LoadingScreen /> :
-        posts.map( (post) => <Post post={post} comentLimits={2}/> )
+        posts.map( (post) => <Post post={post} key={post._id}/> )
 
      }
     </div>

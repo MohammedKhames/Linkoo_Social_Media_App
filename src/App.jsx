@@ -1,8 +1,7 @@
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import './App.css'
 import MainLayout from './Layout/MainLayout'
-import { Children } from 'react'
 import Feed from './Pages/Feed'
 import Profile from './Pages/Profile'
 import PostDetails from './Pages/PostDetails'
@@ -11,39 +10,36 @@ import AuthLayout from './Layout/AuthLayout'
 import SignIn from './Pages/SignIn'
 import SignUp from './Pages/SignUp'
 import { HeroUIProvider, ToastProvider } from '@heroui/react'
-import hero from './hero'
 import ProtectedRoute from './protectedRoutes/ProtectedRoute'
 import ProtectedAuthRoute from './protectedRoutes/ProtectedAuthRoute'
 import AuthContextProvider from './contexts/authContext'
 
 
-
 // with prtptectedRoutes
 
-  // const router = createBrowserRouter([
-  //  {
-  //       path:'',
-  //       element:<MainLayout />,
-  //       children: [
-          
-  //           {index:true, element: <ProtectedRoute><Feed /></ProtectedRoute> },
-  //           {path: 'profile', element:<ProtectedRoute> <Profile /> <ProtectedRoute>},
-  //           {path: 'post/:postId', element:<ProtectedRoute> <PostDetails /> <ProtectedRoute>},</ProtectedRoute></ProtectedRoute>
-  //           {path: '*', element: <NotFound />} ]
-  //   },
+  const router = createBrowserRouter([
+   {
+        path:'/',
+        element:<MainLayout />,
+        children: [
+            {index:true, element: <ProtectedRoute><Feed /></ProtectedRoute> },
+            {path: 'profile', element:<ProtectedRoute> <Profile /> </ProtectedRoute>},
+            {path: 'post/:postId', element:<ProtectedRoute> <PostDetails /> </ProtectedRoute>},
+            {path: '*', element: <NotFound />} ]
+    },
 
-  //   {
-  //     path:'',
-  //     element:<AuthLayout />,
-  //     children:[ 
-  //          {path: 'signin', element: <ProtectedAuthRoute><SignIn /> </ProtectedAuthRoute>},
-  //          {path: 'signup', element: <ProtectedAuthRoute><SignUp /></ProtectedAuthRoute>},]
-  //   }
+    {
+      path:'/',
+      element:<AuthLayout />,
+      children:[ 
+           {path: 'signin', element: <ProtectedAuthRoute><SignIn /> </ProtectedAuthRoute>},
+           {path: 'signup', element: <ProtectedAuthRoute><SignUp /></ProtectedAuthRoute>},]
+    }
    
-  // ])
+  ])
 
 
-
+{/* 
   const router = createBrowserRouter([
    {
         path:'',
@@ -64,7 +60,7 @@ import AuthContextProvider from './contexts/authContext'
            {path: 'signup', element: <SignUp />},]
     }
    
-  ])
+  ]) */}
 
 function App() {
   return (

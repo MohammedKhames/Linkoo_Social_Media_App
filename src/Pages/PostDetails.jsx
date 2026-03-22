@@ -1,26 +1,36 @@
 import React, {  useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Post from '../Components/Post'
+
 import { apiServices } from '../services/apiServices';
 import LoadingScreen from '../Components/LoadingScreen';
-
+import Post from '../Components/posts/Post'
 
 export default function PostDetails() {
 
     let {postId} = useParams()
     const [post, setPost] = useState(null)
+const [comments, setComments]=useState([])
 
 
+// post details
     async function getPostDetails() {
 
-      const data = await apiServices.getPostDetails(postId)
+      const {data} = await apiServices.getPostDetails(postId)
       setPost(data.post)
       
     }
 
 
+// post Comments
+  async function getPostComments() {
+    const {data}= await apiServices.getPostComments(postId)
+    setComments(data.comments)
+    
+  }
+
     useEffect(()=>{
       getPostDetails()
+      getPostComments()
     },[])
 
 
@@ -29,7 +39,7 @@ export default function PostDetails() {
      {
         
         post == null ? <LoadingScreen /> :
-        <Post post={post}/>}
+        <Post post={post}  comments={comments}/>}
 
     </div>
   )

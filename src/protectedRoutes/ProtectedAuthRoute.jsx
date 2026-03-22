@@ -1,15 +1,16 @@
 import React from 'react'
+import { Navigate } from 'react-router-dom'
 import { authContext } from '../contexts/authContext'
+import { useContext } from 'react'
 
 
 export default function ProtectedAuthRoute({children}) {
 
-    const {UserToken}=useContext(authContext) 
+    const {userToken}=useContext(authContext) 
   
-    const isLoggedIn = !!UserToken
+    const isLoggedIn = !!userToken
   return (
       <div>
-      <h1> Protected Auth Route</h1>
       {isLoggedIn ? <Navigate to={"/"}/> :  children}
     </div>
   )
