@@ -104,6 +104,21 @@ class ApiServices{
 
     }
 
+
+
+
+  // #8 Create Comment
+  async createComment(postId, formData){
+    const {data} = await axios.post(import.meta.env.VITE_BASE_URL + "/posts/" + postId + "/comments", formData, {
+        headers:{
+            token:this.#token
+        }
+    })
+
+    return data;
+
+  }
+
 }
     
 

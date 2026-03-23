@@ -29,9 +29,14 @@ const [comments, setComments]=useState([])
   }
 
     useEffect(()=>{
+      getPostDetailsAndComments()
+    },[])
+
+    function getPostDetailsAndComments(){
       getPostDetails()
       getPostComments()
-    },[])
+
+    }
 
 
   return (
@@ -39,7 +44,7 @@ const [comments, setComments]=useState([])
      {
         
         post == null ? <LoadingScreen /> :
-        <Post post={post}  comments={comments}/>}
+        <Post post={post}  comments={comments} getPosts={getPostDetailsAndComments}/>}
 
     </div>
   )
