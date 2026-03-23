@@ -12,7 +12,12 @@ export default function AuthContextProvider({ children}){
     const [userToken, setUserToken]=useState(localStorage.getItem("token"))
     const [isLoading, setIsLoading] =useState(false)
     const [userData, setUserData] =useState(null)
+    const [user,setUser] =useState(null)
 
+    async function getMyProfile(){
+        const user = await apiServices.getMyProfile()
+        setUser(user)
+    }
 
     useEffect( () =>{
         if(userToken != null){
@@ -20,6 +25,8 @@ export default function AuthContextProvider({ children}){
             apiServices.setToken(userToken)
 
             getLoggedUserData()
+
+            getMyProfile()
         }
         
     },[userToken])
@@ -49,7 +56,7 @@ export default function AuthContextProvider({ children}){
 
 
 
-    return <authContext.Provider value={ {userToken,setUserToken,isLoading, userData,setUserData}}>
+    return <authContext.Provider value={ {userToken,setUserToken,isLoading, userData,setUserData,user}}>
         {children}
     </authContext.Provider>
 }

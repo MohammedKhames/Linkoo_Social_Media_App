@@ -119,6 +119,47 @@ class ApiServices{
 
   }
 
+
+
+  // #9 get my Profile
+  async getMyProfile(){
+    const {data} = await axios.get(import.meta.env.VITE_BASE_URL + "/users/profile-data",{
+        headers:{
+            token:this.#token
+        }
+    })
+    return data.data.user
+  }
+
+
+// #10 delete post 
+async deletePost(postId){
+     const {data} = await axios.delete(import.meta.env.VITE_BASE_URL + "/posts/" + postId,{
+        headers:{
+            token:this.#token
+        }
+    })
+    return data
+
+}
+
+
+// #11 delete comment 
+async deleteComment(postId,commentId){
+     const {data} = await axios.delete(import.meta.env.VITE_BASE_URL + "/posts/" + postId + "/comments/"+commentId,{
+        headers:{
+            token:this.#token
+        }
+    })
+    return data
+
+}
+
+
+
+
+
+
 }
     
 

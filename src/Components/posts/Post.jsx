@@ -10,12 +10,24 @@ import { apiServices } from '../../services/apiServices';
 export default function Post({post, comments = [],getPosts}) {
 
   async function addComment(formData) {
-    const response =await apiServices.createComment(post._id,formData)
-    if(response.success){
+    const response = await apiServices.createComment(post._id, formData)
+    if (response.success) {
       getPosts()
-
     }
-    
+  }
+
+  async function deleteComment(commentId) {
+    const response = await apiServices.deleteComment(post._id, commentId)
+    if (response.success) {
+      getPosts()
+    }
+  }
+
+  async function deletePost() {
+    const response = await apiServices.deletePost(post._id)
+    if (response.success) {
+      getPosts()
+    }
   }
 
 
@@ -23,18 +35,20 @@ export default function Post({post, comments = [],getPosts}) {
 
    <article className="mb-4 break-inside p-6 rounded-xl bg-gray-50 shadow dark:bg-slate-800 flex flex-col bg-clip-border">
   
-           <PostHeader userName={post.user.name} userPhoto={post.user.photo}/>    
+           <PostHeader userName={post.user.name} userPhoto={post.user.photo} deletePost={deletePost} creatorId={post.user._id}/>    
            <PostBody caption= {post.body} image={post.image}/>    
            <PostFooter commentsCount={post.commentsCount} likesCount={post.likesCount}/>
            <CreateCommentInput addComment={addComment}/>
 
             <div className="pt-6">
               { 
-
-                  comments.length > 0 ? comments.map((comment)=> <Comment comment={comment} key={comment._id}/>)
-                  :
-                  post.topComment && <Comment comment={post.topComment}/>
-
+                comments.length > 0
+                  ? comments.map((comment) => (
+                      <Comment comment={comment} key={comment._id} deleteComment={deleteComment} postCreatorId={post.user._id}/>
+                    ))
+                  : (post.topComment &&
+                      <Comment comment={post.topComment} deleteComment={deleteComment} postCreatorId={post.user._id}/>
+                    )
               }
             </div>
 

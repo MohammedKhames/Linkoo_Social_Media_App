@@ -1,19 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import avatar from '/src/assets/avatar.png'
+import { authContext } from '../../contexts/authContext'
 
-export default function Comment({comment}) {
+export default function Comment({comment, deleteComment, postCreatorId}) {
+
+  const { user } = useContext(authContext)
+
   return (
     <div className="media flex pb-4">
               <a className="mr-4" href="#">
                 <img onError={(e)=> e.target.src=avatar} className="rounded-full max-w-none w-12 h-12" src={comment.commentCreator.photo} />
               </a>
-              <div className="media-body">
-                <div>
-                  <a className="inline-block text-base font-bold mr-2" href="#">{comment.commentCreator.name}</a>
-                  <span className="text-slate-500 dark:text-slate-300">25 minutes ago</span>
-                </div>
-                <p>{comment.content}</p>
 
+              <div className="media-body grow">
+                <div className='flex justify-between w-full'>
+                  <div>
+                    <a className="inline-block text-base font-bold mr-2" href="#">{comment.commentCreator.name}</a>
+                    <span className="text-slate-500 dark:text-slate-300">25 minutes ago</span>
+                  </div>
+                 {user && (user._id == comment.commentCreator._id || user._id == postCreatorId) &&
+                   <button onClick={()=>deleteComment(comment._id)}>Delete</button>
+                 }
+               </div>
+                 { comment.content && <p>{comment.content}</p>}
+                 {comment.img && <img src={comment.img} className='w-1/2 mt-2'/>}
                 <div className="mt-2 flex items-center">
                   <a className="inline-flex items-center py-2 mr-3" href="#">
                     <span className="mr-2">

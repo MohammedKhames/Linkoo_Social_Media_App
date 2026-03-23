@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { apiServices } from '../services/apiServices';
@@ -7,45 +7,40 @@ import Post from '../Components/posts/Post'
 
 export default function PostDetails() {
 
-    let {postId} = useParams()
+    let { postId } = useParams()
     const [post, setPost] = useState(null)
-const [comments, setComments]=useState([])
+    const [comments, setComments] = useState([])
 
 
-// post details
+    // post details
     async function getPostDetails() {
-
-      const {data} = await apiServices.getPostDetails(postId)
+      const data = await apiServices.getPostDetails(postId)
       setPost(data.post)
-      
     }
 
 
-// post Comments
-  async function getPostComments() {
-    const {data}= await apiServices.getPostComments(postId)
-    setComments(data.comments)
-    
-  }
+    // post Comments
+    async function getPostComments() {
+      const data = await apiServices.getPostComments(postId)
+      setComments(data.comments)
+    }
 
-    useEffect(()=>{
-      getPostDetailsAndComments()
-    },[])
-
-    function getPostDetailsAndComments(){
+    function getPostDetailsAndComments() {
       getPostDetails()
       getPostComments()
-
     }
+
+    useEffect(() => {
+      getPostDetailsAndComments()
+    }, [])
 
 
   return (
-    <div  className='max-w-2xl mx-auto py-10 grid gap-6'>
+    <div className='max-w-2xl mx-auto py-10 grid gap-6'>
      {
-        
         post == null ? <LoadingScreen /> :
-        <Post post={post}  comments={comments} getPosts={getPostDetailsAndComments}/>}
-
+        <Post post={post} comments={comments} getPosts={getPostDetailsAndComments}/>
+     }
     </div>
   )
 }

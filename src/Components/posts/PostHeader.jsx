@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import avatar from '/src/assets/avatar.png'
+import { authContext } from '../../contexts/authContext'
 
-export default function PostHeader({userName,userPhoto}) {
+export default function PostHeader({userName,userPhoto,deletePost,creatorId}) {
+
+  const {user} =useContext(authContext)
+  
   return (
      <div className="flex pb-6 items-center justify-between">
             <div className="flex">
@@ -17,6 +21,7 @@ export default function PostHeader({userName,userPhoto}) {
                 </div>
               </div>
             </div>
+            {creatorId==user._id && <button onClick={deletePost}>Delete</button>}
           </div>
   )
 }
