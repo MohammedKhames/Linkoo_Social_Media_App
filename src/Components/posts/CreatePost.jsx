@@ -21,8 +21,12 @@ export default function CreatePost({ getPosts, setPosts, userData }) {
     e.preventDefault()
     setLoading(true)
     const formData = new FormData()
+
     formData.set("body", caption)
+    
     if (image) formData.set("image", image)
+
+
 
     const response = await apiServices.createPost(formData)
     console.log(response)
@@ -34,7 +38,6 @@ export default function CreatePost({ getPosts, setPosts, userData }) {
       setImagePreview(null)
       setShowForm(false)
 
-      // أضف البوست الجديد في أول القائمة مع بيانات اليوزر الحالي
       const newPost = {
         ...response.data.post,
         user: {

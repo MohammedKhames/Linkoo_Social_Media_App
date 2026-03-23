@@ -49,7 +49,7 @@ function logout(){
 
             <DropdownItem key="profile">
              <Link  className="h-14" to="/profile">
-              <p className="font-semibold">Signed in as</p>
+              <p className="font-semibold">Signed in as {userData?.name}</p>
               <p className="font-semibold">{userData?.email}</p>
              </Link>
             </DropdownItem>

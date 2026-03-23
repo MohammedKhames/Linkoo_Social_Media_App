@@ -1,10 +1,33 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import avatar from '/src/assets/avatar.png'
 import { authContext } from '../../contexts/authContext'
+import { Input,Button } from '@heroui/react'
+import { apiServices } from '../../services/apiServices'
 
-export default function Comment({comment, deleteComment, postCreatorId}) {
+export default function Comment({comment, deleteComment, postCreatorId,getPosts}) {
 
   const { user } = useContext(authContext)
+  const [isInEditMode,setIsInEditMode] = useState(false)
+  const [commentContent, setCommentContent] = useState(comment.content)
+  const [isUpdating,setIsUpdating] = useState(false)
+
+
+
+ async function updateComment() {
+  setIsUpdating(true)
+  const formData =new FormData()
+  formData.set("content",commentContent)
+  const response = await apiServices.updateComment(comment.post, comment._id, formData)
+  //console.log(response)
+
+   await getPosts()
+
+  setIsInEditMode(false)
+
+  setIsUpdating(false)
+
+  
+ }
 
   return (
     <div className="media flex pb-4">
@@ -18,12 +41,34 @@ export default function Comment({comment, deleteComment, postCreatorId}) {
                     <a className="inline-block text-base font-bold mr-2" href="#">{comment.commentCreator.name}</a>
                     <span className="text-slate-500 dark:text-slate-300">25 minutes ago</span>
                   </div>
-                 {user && (user._id == comment.commentCreator._id || user._id == postCreatorId) &&
-                   <button onClick={()=>deleteComment(comment._id)}>Delete</button>
-                 }
+
+                    <div className='flex gap-2'>
+
+                        {user && (user._id == comment.commentCreator._id) &&
+                        <button onClick={()=> setIsInEditMode(true)}>Edit</button>}
+
+                          {user && (user._id == comment.commentCreator._id || user._id == postCreatorId) &&
+                        <button onClick={()=>deleteComment(comment._id)}>Delete</button>}
+                    </div>
                </div>
-                 { comment.content && <p>{comment.content}</p>}
+               {
+                 isInEditMode ?  
+                <div>
+                   <Input value={commentContent} onChange={(e) => setCommentContent(e.target.value)} /> 
+                   <div className='flex justify-end gap-2 mt-2'>
+                    <button onClick={()=>{setIsInEditMode(false); setCommentContent(comment.content)}}> Cancel</button>
+                    <Button isLoading={isUpdating} color="primary" onPress={updateComment}> Update</Button>
+
+                   </div>
+
+                </div>
+                 :
+                 comment.content && <p>{comment.content}</p> 
+                 
+               }
+                
                  {comment.img && <img src={comment.img} className='w-1/2 mt-2'/>}
+
                 <div className="mt-2 flex items-center">
                   <a className="inline-flex items-center py-2 mr-3" href="#">
                     <span className="mr-2">

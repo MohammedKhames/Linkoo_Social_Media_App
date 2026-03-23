@@ -156,13 +156,53 @@ async deleteComment(postId,commentId){
 }
 
 
+// #12 update comment 
+
+async updateComment(postId,commentId,formData){
+     const response= await axios.put(import.meta.env.VITE_BASE_URL + "/posts/" + postId + "/comments/"+commentId,formData,{
+        headers:{
+            token:localStorage.getItem("token")
+        }
+    })
+    return response
+
+}
 
 
 
+
+// #13 update post
+async updatePost(postId, formData){
+  const {data} = await axios.put(import.meta.env.VITE_BASE_URL + "/posts/" + postId, formData, {
+    headers:{
+      token: this.#token
+    }
+  })
+  return data
+}
+
+// #14 change password
+async changePassword(formData){
+  const {data} = await axios.patch(import.meta.env.VITE_BASE_URL + "/users/change-password", formData, {
+    headers:{
+      token: this.#token
+    }
+  })
+  return data
+}
+
+// #15 get user posts
+async getUserPosts(userId){
+  const {data} = await axios.get(import.meta.env.VITE_BASE_URL + "/users/" + userId + "/posts", {
+    headers:{
+      token: this.#token
+    }
+  })
+  return data
+}
 
 }
     
-
 
 
 export const apiServices = new ApiServices()

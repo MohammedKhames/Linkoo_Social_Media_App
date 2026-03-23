@@ -2,9 +2,9 @@ import React, { useContext } from 'react'
 import avatar from '/src/assets/avatar.png'
 import { authContext } from '../../contexts/authContext'
 
-export default function PostHeader({userName,userPhoto,deletePost,creatorId}) {
+export default function PostHeader({userName, userPhoto, deletePost, editPost, creatorId}) {
 
-  const {user} =useContext(authContext)
+  const {user} = useContext(authContext)
   
   return (
      <div className="flex pb-6 items-center justify-between">
@@ -21,7 +21,23 @@ export default function PostHeader({userName,userPhoto,deletePost,creatorId}) {
                 </div>
               </div>
             </div>
-            {creatorId==user._id && <button onClick={deletePost}>Delete</button>}
+            {creatorId == user?._id && (
+              <div className="flex gap-2">
+                <button
+                  onClick={editPost}
+                  className="text-sm text-blue-500 hover:text-blue-700 font-medium px-3 py-1 rounded-md hover:bg-blue-50 transition"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={deletePost}
+                  className="text-sm text-red-500 hover:text-red-700 font-medium px-3 py-1 rounded-md hover:bg-red-50 transition"
+                >
+                  Delete
+                </button>
+              </div>
+            )}
           </div>
   )
 }
+
