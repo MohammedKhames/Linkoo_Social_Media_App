@@ -38,6 +38,8 @@ export default function SignIn() {
 
         localStorage.setItem("token", data.data.token)
 
+        apiServices.setToken(data.data.token)  // ← تحديث التوكن داخل apiServices فوراً
+
         setUserToken(data.data.token)
 
         navigate("/") 

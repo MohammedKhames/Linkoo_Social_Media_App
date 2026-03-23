@@ -1,27 +1,31 @@
-import React, {  useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Post from '../Components/posts/Post';
 import LoadingScreen from '../Components/LoadingScreen';
 import { apiServices } from '../services/apiServices'
-
+import CreatePost from '../Components/posts/CreatePost';
+import { authContext } from '../contexts/authContext';
 
 
 export default function Feed() {
 
-  const [posts,setPosts] =useState([])
+  const { userData } = useContext(authContext)
+  const [posts, setPosts] = useState([])
 
-  async function getPosts(){
-    const {data} =await apiServices.getPosts()
+  async function getPosts() {
+    const { data } = await apiServices.getPosts()
     setPosts(data.posts)
   }
 
-  useEffect( () =>{
+  useEffect(() => {
     getPosts()
-  },[])
+  }, [])
 
 
 
   return (
-    <div  className='max-w-xl mx-auto py-10 grid gap-6'>
+    <div className='max-w-xl mx-auto py-10 grid gap-6'>
+
+      <CreatePost getPosts={getPosts} setPosts={setPosts} userData={userData} />
       {
 
         posts.length == 0 ? <LoadingScreen /> :

@@ -89,7 +89,20 @@ class ApiServices{
     return data
   }
 
+  // #7 create post
 
+ async createPost(formData){
+
+     const {data} =await axios.post(import.meta.env.VITE_BASE_URL + "/posts",formData,{
+            headers:{
+            token: this.#token
+            }
+           
+        })
+
+        return data;
+
+    }
 
 }
     
