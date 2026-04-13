@@ -201,6 +201,56 @@ async getUserPosts(userId){
   return data
 }
 
+// #16 like post
+async likePost(postId){
+  const {data} = await axios.patch(import.meta.env.VITE_BASE_URL + "/posts/" + postId + "/like", {}, {
+    headers:{
+      token: this.#token
+    }
+  })
+  return data
+}
+
+// #17 share post
+async sharePost(postId){
+  const {data} = await axios.patch(import.meta.env.VITE_BASE_URL + "/posts/" + postId + "/share", {}, {
+    headers:{
+      token: this.#token
+    }
+  })
+  return data
+}
+
+// #18 get post likes
+async getPostLikes(postId){
+  const {data} = await axios.get(import.meta.env.VITE_BASE_URL + "/posts/" + postId + "/likes?page=1&limit=20", {
+    headers:{
+      token: this.#token
+    }
+  })
+  return data
+}
+
+// #19 like comment
+async likeComment(postId, commentId){
+  const {data} = await axios.patch(import.meta.env.VITE_BASE_URL + "/posts/" + postId + "/comments/" + commentId + "/like", {}, {
+    headers:{
+      token: this.#token
+    }
+  })
+  return data
+}
+
+// #20 get notifications
+async getNotifications(){
+  const {data} = await axios.get(import.meta.env.VITE_BASE_URL + "/notifications?unread=false&page=1&limit=10", {
+    headers:{
+      token: this.#token
+    }
+  })
+  return data
+}
+
 }
     
 

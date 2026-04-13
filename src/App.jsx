@@ -13,6 +13,8 @@ import { HeroUIProvider, ToastProvider } from '@heroui/react'
 import ProtectedRoute from './protectedRoutes/ProtectedRoute'
 import ProtectedAuthRoute from './protectedRoutes/ProtectedAuthRoute'
 import AuthContextProvider from './contexts/authContext'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 
 // with prtptectedRoutes
@@ -38,39 +40,20 @@ import AuthContextProvider from './contexts/authContext'
    
   ])
 
-
-{/* 
-  const router = createBrowserRouter([
-   {
-        path:'',
-        element:<MainLayout />,
-        children: [
-          
-            {index:true, element: <Feed /> },
-            {path: 'profile', element: <Profile />},
-            {path:'post/:postId', element: <PostDetails/>},
-            {path: '*', element: <NotFound />} ]
-    },
-
-    {
-      path:'',
-      element:<AuthLayout />,
-      children:[ 
-           {path: 'signin', element: <SignIn /> },
-           {path: 'signup', element: <SignUp />},]
-    }
-   
-  ]) */}
+const queryClient = new QueryClient()
 
 function App() {
   return (
     <>
-    <AuthContextProvider>
-      <HeroUIProvider> 
-        <ToastProvider/>
-       <RouterProvider router={router} />
-      </HeroUIProvider>
-    </AuthContextProvider>
+    <QueryClientProvider client={queryClient}> 
+      <ReactQueryDevtools/>
+      <AuthContextProvider>
+        <HeroUIProvider> 
+          <ToastProvider/>
+        <RouterProvider router={router} />
+        </HeroUIProvider>
+      </AuthContextProvider>
+    </QueryClientProvider>
     </>
   )
 }

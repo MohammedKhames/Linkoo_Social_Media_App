@@ -4,11 +4,9 @@ import NavBar from '../Components/NavBar'
 
 export default function MainLayout() {
   return (
-    <div>
+    <div className='min-h-screen bg-slate-50 dark:bg-slate-950'>
         <NavBar/>
-
         <Outlet/>
-        
     </div>
   )
 }
