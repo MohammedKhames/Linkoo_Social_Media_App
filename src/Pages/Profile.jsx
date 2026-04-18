@@ -1,17 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { authContext } from '../contexts/authContext'
 import { apiServices } from '../services/apiServices'
 import avatar from '/src/assets/avatar.png'
 import Post from '../Components/posts/Post'
 import PostSkeleton from '../Components/posts/PostSkeleton'
 import ChangePasswordModal from '../Components/Password/ChangePasswordModal'
+import { Spinner } from '@heroui/react'
 
 export default function Profile() {
-  const { userData } = useContext(authContext)
+  const { userData, getLoggedUserData } = useContext(authContext)
   const [posts, setPosts] = useState([])
   const [postsLoading, setPostsLoading] = useState(true)
   const [showChangePassword, setShowChangePassword] = useState(false)
   const [activeTab, setActiveTab] = useState('posts')
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false)
+  const fileInputRef = useRef(null)
 
   async function getUserPosts() {
     if (!userData?._id) return
@@ -42,6 +45,22 @@ export default function Profile() {
     return new Date(userData.dateOfBirth).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
   }
 
+  async function handlePhotoUpload(e) {
+    const file = e.target.files[0]
+    if (!file) return
+    setIsUploadingPhoto(true)
+    const formData = new FormData()
+    formData.append('photo', file)
+    try {
+      await apiServices.uploadProfilePhoto(formData)
+      await getLoggedUserData() // refresh context
+    } catch (error) {
+      console.error('Failed to upload photo', error)
+    } finally {
+      setIsUploadingPhoto(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       
@@ -63,16 +82,36 @@ export default function Profile() {
         {/* Profile avatar — overlapping cover */}
         <div className="max-w-[1280px] mx-auto px-4 relative">
           <div className="absolute -bottom-[70px] left-4 sm:left-6">
-            <div className="relative">
-              <div className="w-[140px] h-[140px] rounded-full ring-[5px] ring-white dark:ring-slate-950 overflow-hidden bg-slate-200 dark:bg-slate-800 shadow-2xl">
+            <div className="relative group cursor-pointer" onClick={() => fileInputRef.current?.click()}>
+              <div className="w-[140px] h-[140px] rounded-full ring-[5px] ring-white dark:ring-slate-950 overflow-hidden bg-slate-200 dark:bg-slate-800 shadow-2xl relative">
                 <img
                   src={userData?.photo || avatar}
                   onError={(e) => e.target.src = avatar}
                   alt="Profile"
-                  className="w-full h-full object-cover"
+                  className={`w-full h-full object-cover transition-opacity ${isUploadingPhoto ? 'opacity-50' : 'opacity-100 group-hover:opacity-75'}`}
                 />
+                
+                {/* Upload Overlay */}
+                <div className={`absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity ${isUploadingPhoto ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                  {isUploadingPhoto ? (
+                    <Spinner color="white" size="md" />
+                  ) : (
+                    <svg className="w-8 h-8 text-white drop-shadow-md" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                      <circle cx="12" cy="12.75" r="3" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  )}
+                </div>
               </div>
-              <div className="absolute bottom-2 right-2 w-5 h-5 bg-emerald-500 rounded-full ring-[3px] ring-white dark:ring-slate-950"></div>
+              <div className="absolute bottom-2 right-2 w-5 h-5 bg-emerald-500 rounded-full ring-[3px] ring-white dark:ring-slate-950 z-10 pointer-events-none"></div>
+              
+              <input 
+                type="file" 
+                ref={fileInputRef} 
+                onChange={handlePhotoUpload} 
+                accept="image/*" 
+                className="hidden" 
+              />
             </div>
           </div>
         </div>

@@ -18,7 +18,7 @@ import logo from '../assets/logo.png';
 export default function NavBar() {
 
 const navigate = useNavigate()
-const {isLoading, userToken , userData,setUserToken} = useContext(authContext) 
+const {isLoading, userToken , userData,setUserToken, searchTerm, setSearchTerm} = useContext(authContext) 
 const [isDark, setIsDark] = useState(() => localStorage.getItem('theme') === 'dark');
 
 useEffect(() => {
@@ -76,6 +76,8 @@ function logout(){
             </div>
             <input 
               type="text" 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="block w-full py-2.5 pl-11 pr-4 text-sm text-slate-900 border border-slate-200/60 rounded-xl bg-slate-50/50 
                          focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-400 
                          dark:bg-slate-900/40 dark:border-slate-800 dark:placeholder-slate-600 dark:text-white 
@@ -85,7 +87,7 @@ function logout(){
             {/* Keyboard shortcut indicator */}
             <div className="absolute inset-y-0 right-3 hidden sm:flex items-center pointer-events-none">
                 <kbd className="px-2 py-1 text-[10px] font-semibold text-slate-400 bg-white border border-slate-200 rounded-lg dark:bg-slate-800 dark:border-slate-700 dark:text-slate-500">
-                    Ctrl K
+                    Search
                 </kbd>
             </div>
           </div>

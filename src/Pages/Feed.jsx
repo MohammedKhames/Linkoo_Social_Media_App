@@ -32,7 +32,7 @@ const avatarColors = [
 
 export default function Feed() {
 
-  const { userData } = useContext(authContext)
+  const { userData, searchTerm } = useContext(authContext)
   const [expandedChat, setExpandedChat] = useState(null)
 
   const { data: posts = [], isLoading, refetch, isFetching } = useQuery({
@@ -166,7 +166,13 @@ export default function Feed() {
               <p className="text-sm text-slate-500 dark:text-slate-400">Be the first to share something!</p>
             </div>
           ) : (
-            posts.map((post) => <Post post={post} key={post._id} getPosts={refetch} />)
+            posts
+              .filter(post => 
+                !searchTerm || 
+                post.body?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                post.user?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              .map((post) => <Post post={post} key={post._id} getPosts={refetch} />)
           )}
         </main>
 

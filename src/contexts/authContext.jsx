@@ -14,6 +14,7 @@ export default function AuthContextProvider({ children}){
     const [isLoading, setIsLoading] =useState(false)
     const [userData, setUserData] =useState(null)
     const [user,setUser] =useState(null)
+    const [searchTerm, setSearchTerm] = useState("")
 
     async function getMyProfile(){
         const user = await apiServices.getMyProfile()
@@ -57,7 +58,7 @@ export default function AuthContextProvider({ children}){
 
 
 
-    return <authContext.Provider value={ {userToken,setUserToken,isLoading, userData,setUserData,user}}>
+    return <authContext.Provider value={ {userToken,setUserToken,isLoading, userData,setUserData,user,searchTerm,setSearchTerm,getLoggedUserData}}>
         {children}
     </authContext.Provider>
 }

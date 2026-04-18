@@ -1,11 +1,39 @@
 import { authContext } from '../../contexts/authContext'
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 
-export default function PostFooter({ post, onLike, onShare }) {
+export default function PostFooter({ post, onLike, onUnlike, onShare }) {
   const { userData } = useContext(authContext)
-  const { likesCount = 0, commentsCount = 0, sharesCount = 0, likes = [] } = post
+  const { likesCount: initialLikesCount = 0, commentsCount = 0, sharesCount = 0, likes = [] } = post
 
-  const isLiked = likes.some(like => (typeof like === 'string' ? like === userData?._id : like?._id === userData?._id))
+  const actuallyLiked = likes.some(like => (typeof like === 'string' ? like === userData?._id : like?._id === userData?._id))
+
+  const [localIsLiked, setLocalIsLiked] = useState(actuallyLiked)
+  const [localLikesCount, setLocalLikesCount] = useState(initialLikesCount)
+
+  useEffect(() => {
+    setLocalIsLiked(actuallyLiked)
+    setLocalLikesCount(initialLikesCount)
+  }, [actuallyLiked, initialLikesCount])
+
+  const handleToggleLike = async () => {
+    // Optimistic update
+    const previousIsLiked = localIsLiked;
+    setLocalIsLiked(!previousIsLiked);
+    setLocalLikesCount(prev => previousIsLiked ? prev - 1 : prev + 1);
+
+    try {
+      if (previousIsLiked) {
+        await onUnlike();
+      } else {
+        await onLike();
+      }
+    } catch(e) {
+      console.error(e)
+      // Revert if entirely failed
+      setLocalIsLiked(previousIsLiked);
+      setLocalLikesCount(prev => previousIsLiked ? prev + 1 : prev - 1);
+    }
+  }
 
   return (
     <div className="flex flex-col">
@@ -25,7 +53,7 @@ export default function PostFooter({ post, onLike, onShare }) {
             </div>
           </div>
           <span className="text-[13px] font-medium text-slate-500 dark:text-slate-400">
-            {likesCount}
+            {localLikesCount}
           </span>
         </div>
 
@@ -38,17 +66,17 @@ export default function PostFooter({ post, onLike, onShare }) {
       {/* ─── Action Buttons ─── */}
       <div className="flex items-center justify-between py-1 mt-1">
         <button 
-          onClick={onLike}
+          onClick={handleToggleLike}
           className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl transition-all font-bold group
-            ${isLiked 
+            ${localIsLiked 
               ? 'text-rose-600 bg-rose-50/50 dark:bg-rose-900/10' 
               : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-rose-600 dark:hover:text-rose-400'
             }`}
         >
-          <svg className={`w-5 h-5 stroke-current stroke-2 transition-all ${isLiked ? 'fill-rose-500' : 'fill-none group-hover:fill-rose-500'}`} viewBox="0 0 24 24">
+          <svg className={`w-5 h-5 stroke-current stroke-2 transition-all ${localIsLiked ? 'fill-rose-500' : 'fill-none group-hover:fill-rose-500'}`} viewBox="0 0 24 24">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
           </svg>
-          {isLiked ? 'Liked' : 'Like'}
+          {localIsLiked ? 'Liked' : 'Like'}
         </button>
 
         <button className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-slate-600 dark:text-slate-400 font-bold hover:text-indigo-600 dark:hover:text-indigo-400 group">
@@ -59,7 +87,21 @@ export default function PostFooter({ post, onLike, onShare }) {
         </button>
 
         <button 
-          onClick={onShare}
+          onClick={async () => {
+            await onShare();
+            try {
+              if (navigator.share) {
+                navigator.share({
+                  title: 'Linkoo Post',
+                  text: 'Check out this post on Linkoo!',
+                  url: window.location.origin + '/post/' + post._id
+                });
+              } else {
+                navigator.clipboard.writeText(window.location.origin + '/post/' + post._id);
+                alert("Link copied to clipboard!");
+              }
+            } catch(e) { }
+          }}
           className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-slate-600 dark:text-slate-400 font-bold hover:text-cyan-600 dark:hover:text-cyan-400 group"
         >
           <svg className="w-5 h-5 fill-none stroke-current stroke-2 group-hover:fill-cyan-500 transition-colors" viewBox="0 0 24 24">
