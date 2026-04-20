@@ -122,22 +122,22 @@ export default function Profile() {
       {/* ══════════════════════════════════════════════════════ */}
       <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-[1280px] mx-auto px-4">
-          <div className="pt-[85px] pb-5 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white capitalize tracking-tight">
+          <div className="pt-[85px] pb-5 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 px-2 sm:px-0">
+            <div className="text-center sm:text-left">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white capitalize tracking-tight">
                 {userData?.name || 'User'}
               </h1>
-              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5 font-medium flex items-center gap-2">
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5 font-medium flex items-center justify-center sm:justify-start gap-2">
                 <span>{posts.length} {posts.length === 1 ? 'Post' : 'Posts'}</span>
                 <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600"></span>
                 <span>Joined {getJoinDate()}</span>
               </p>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex justify-center sm:justify-end gap-2 w-full sm:w-auto">
               <button
                 onClick={() => setShowChangePassword(true)}
-                className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold
+                className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold w-full sm:w-auto
                            bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700
                            text-white shadow-lg shadow-indigo-600/20 hover:shadow-xl hover:shadow-indigo-600/25
                            transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
@@ -184,8 +184,8 @@ export default function Profile() {
       {/* ══════════════════════════════════════════════════════ */}
       {/*  MAIN CONTENT                                         */}
       {/* ══════════════════════════════════════════════════════ */}
-      <div className="max-w-[1280px] mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <div className="max-w-[1280px] mx-auto px-2 sm:px-4 py-4 sm:py-8">
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-8">
 
           {/* ─── Left Sidebar ─── */}
           <div className="lg:w-[320px] shrink-0 space-y-6">

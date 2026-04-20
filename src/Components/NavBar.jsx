@@ -51,10 +51,13 @@ function logout(){
       maxWidth="xl" 
       className="border-b border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-950/90 backdrop-blur-2xl backdrop-saturate-150 shadow-sm shadow-slate-200/50 dark:shadow-slate-900/50" 
       position="sticky"
-      height="4rem"
+      height="auto"
+      classNames={{
+        wrapper: "flex-wrap py-2 sm:py-0 min-h-[4rem]"
+      }}
     >
       {/* ── Left Side: Logo ── */}
-      <NavbarBrand className="basis-1/4">  
+      <NavbarBrand className="lg:w-[284px] lg:basis-auto lg:flex-none">  
         <Link to={"/"} className="flex items-center gap-2.5 transition-all hover:opacity-80 group">
           <div className="relative">
             <img src={logo} alt="Linkoo Logo" className="w-9 h-9 object-contain rounded-xl drop-shadow-sm transition-transform group-hover:scale-105" />
@@ -67,10 +70,10 @@ function logout(){
 
       {/* ── Center: Search Bar (appears if logged in) ── */}
       {!isLoading && userToken && (
-        <NavbarContent className="hidden lg:flex basis-2/4" justify="center">
+        <NavbarContent className="flex flex-1 basis-full lg:basis-auto order-3 sm:order-none mt-2 lg:mt-0" justify="center">
           <div className="relative w-full max-w-[480px]">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-              <svg className="w-4 h-4 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 sm:pl-4 pointer-events-none">
+              <svg className="w-3.5 h-3.5 sm:w-4 h-4 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
               </svg>
             </div>
@@ -78,14 +81,14 @@ function logout(){
               type="text" 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="block w-full py-2.5 pl-11 pr-4 text-sm text-slate-900 border border-slate-200/60 rounded-xl bg-slate-50/50 
+              className="block w-full py-1.5 sm:py-2.5 pl-9 sm:pl-11 pr-4 text-xs sm:text-sm text-slate-900 border border-slate-200/60 rounded-xl bg-slate-50/50 
                          focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-400 
                          dark:bg-slate-900/40 dark:border-slate-800 dark:placeholder-slate-600 dark:text-white 
                          transition-all duration-300 outline-none backdrop-blur-sm shadow-sm" 
-              placeholder="Search conversations, posts, or people..." 
+              placeholder="Search..." 
             />
             {/* Keyboard shortcut indicator */}
-            <div className="absolute inset-y-0 right-3 hidden sm:flex items-center pointer-events-none">
+            <div className="absolute inset-y-0 right-3 hidden lg:flex items-center pointer-events-none">
                 <kbd className="px-2 py-1 text-[10px] font-semibold text-slate-400 bg-white border border-slate-200 rounded-lg dark:bg-slate-800 dark:border-slate-700 dark:text-slate-500">
                     Search
                 </kbd>
@@ -95,7 +98,7 @@ function logout(){
       )}
 
       {/* ── Right Side: Theme, Icons, Profile ── */}
-     {!isLoading && <NavbarContent className="basis-1/4" justify="end">
+     {!isLoading && <NavbarContent className="lg:w-[304px] lg:basis-auto lg:flex-none" justify="end">
       
       {/* Theme Toggle */}
       <div className="flex items-center">
@@ -146,14 +149,8 @@ function logout(){
             <DropdownMenu 
               aria-label="Profile Actions" 
               variant="flat"
-              className="w-64"
+              className="w-48"
             >
-              <DropdownItem key="profile-info" className="h-16 gap-2" textValue="Profile Info">
-               <Link to="/profile" className="w-full flex flex-col">
-                <p className="font-bold text-slate-800 dark:text-slate-200">{userData?.name}</p>
-                <p className="text-sm text-indigo-600 dark:text-indigo-400 truncate">{userData?.email}</p>
-               </Link>
-              </DropdownItem>
               <DropdownItem key="profile" textValue="My Profile">
                 <Link to="/profile" className="w-full flex items-center gap-2">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">

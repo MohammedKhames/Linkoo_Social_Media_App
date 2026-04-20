@@ -43,8 +43,8 @@ export default function Feed() {
 
 
   return (
-    <div className='max-w-[1280px] mx-auto px-4 py-8'>
-      <div className='flex gap-6'>
+    <div className='max-w-[1280px] mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-8'>
+      <div className='flex flex-col lg:flex-row gap-4 sm:gap-6'>
 
         {/* ═══════ Left Sidebar ═══════ */}
         <aside className='hidden lg:block w-[260px] shrink-0'>
@@ -214,7 +214,7 @@ export default function Feed() {
                 </button>
               </div>
 
-              <div className='space-y-1'>
+              <div className='space-y-1 max-h-[380px] overflow-y-auto pr-1 custom-scrollbar'>
                 {contacts.map((contact, i) => (
                   <div key={i}>
                     {/* Contact Row */}
@@ -224,7 +224,7 @@ export default function Feed() {
                     >
                       {/* Avatar */}
                       <div className='relative shrink-0'>
-                        <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${avatarColors[i]} flex items-center justify-center text-white text-xs font-bold shadow-sm`}>
+                        <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${avatarColors[i % avatarColors.length]} flex items-center justify-center text-white text-xs font-bold shadow-sm transition-transform group-hover:scale-105`}>
                           {getInitials(contact.name)}
                         </div>
                         <div className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full ring-2 ring-white dark:ring-slate-900 ${contact.status === 'online' ? 'bg-emerald-500' : 'bg-amber-400'

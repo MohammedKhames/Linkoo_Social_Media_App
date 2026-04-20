@@ -67,7 +67,7 @@ export default function PostFooter({ post, onLike, onUnlike, onShare }) {
       <div className="flex items-center justify-between py-1 mt-1">
         <button 
           onClick={handleToggleLike}
-          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl transition-all font-bold group
+          className={`flex-1 flex items-center justify-center gap-2 py-2 sm:py-2.5 rounded-xl transition-all font-bold group
             ${localIsLiked 
               ? 'text-rose-600 bg-rose-50/50 dark:bg-rose-900/10' 
               : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-rose-600 dark:hover:text-rose-400'
@@ -76,14 +76,14 @@ export default function PostFooter({ post, onLike, onUnlike, onShare }) {
           <svg className={`w-5 h-5 stroke-current stroke-2 transition-all ${localIsLiked ? 'fill-rose-500' : 'fill-none group-hover:fill-rose-500'}`} viewBox="0 0 24 24">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
           </svg>
-          {localIsLiked ? 'Liked' : 'Like'}
+          <span className="hidden sm:inline">{localIsLiked ? 'Liked' : 'Like'}</span>
         </button>
 
-        <button className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-slate-600 dark:text-slate-400 font-bold hover:text-indigo-600 dark:hover:text-indigo-400 group">
+        <button className="flex-1 flex items-center justify-center gap-2 py-2 sm:py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-slate-600 dark:text-slate-400 font-bold hover:text-indigo-600 dark:hover:text-indigo-400 group">
           <svg className="w-5 h-5 fill-none stroke-current stroke-2 group-hover:fill-indigo-500 transition-colors" viewBox="0 0 24 24">
             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
           </svg>
-          Comment
+          <span className="hidden sm:inline">Comment</span>
         </button>
 
         <button 
@@ -102,14 +102,14 @@ export default function PostFooter({ post, onLike, onUnlike, onShare }) {
               }
             } catch(e) { }
           }}
-          className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-slate-600 dark:text-slate-400 font-bold hover:text-cyan-600 dark:hover:text-cyan-400 group"
+          className="flex-1 flex items-center justify-center gap-2 py-2 sm:py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-slate-600 dark:text-slate-400 font-bold hover:text-cyan-600 dark:hover:text-cyan-400 group"
         >
           <svg className="w-5 h-5 fill-none stroke-current stroke-2 group-hover:fill-cyan-500 transition-colors" viewBox="0 0 24 24">
             <polyline points="15 3 21 3 21 9" />
             <line x1="10" y1="14" x2="21" y2="3" />
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
           </svg>
-          Share
+          <span className="hidden sm:inline">Share</span>
         </button>
       </div>
     </div>

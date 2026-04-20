@@ -95,7 +95,7 @@ export default function Post({post, comments = [],getPosts}) {
 
   return (
 
-   <article className="mb-6 break-inside p-6 rounded-2xl bg-white shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-300 dark:bg-slate-900 dark:border-slate-800 flex flex-col bg-clip-border overflow-hidden">
+   <article className="mb-4 sm:mb-6 break-inside p-3 sm:p-6 rounded-2xl bg-white shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-300 dark:bg-slate-900 dark:border-slate-800 flex flex-col bg-clip-border overflow-hidden">
   
            <PostHeader
              userName={post.user.name}
