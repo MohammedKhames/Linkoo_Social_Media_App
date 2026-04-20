@@ -1,4 +1,4 @@
-# Linkoo - Premium Social Media Platform 🚀
+# Linkoo - Social Media Platform 🚀
 
 **Linkoo** is a state-of-the-art social media application built with the latest web technologies. It offers a seamless, fast, and visually stunning user experience, featuring a fully responsive design that feels native on mobile, tablet, and desktop.
 
