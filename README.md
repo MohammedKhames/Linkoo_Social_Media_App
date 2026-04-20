@@ -77,7 +77,6 @@ The application will be live at `http://localhost:5173/`.
 ---
 
 ## 👨‍💻 Developed By
-**Mohammed Khamis** - *Senior React Developer*
+**Mohammed Khamis** - *React Developer*
 
 ---
-**
