@@ -66,7 +66,13 @@ The application will be live at `http://localhost:5173/`.
 
 ## 📸 UI Showcase
 
-*(Add your application screenshots here to showcase the design!)*
+*
+<img width="1889" height="802" alt="image" src="https://github.com/user-attachments/assets/0b8c9890-8f30-45fd-a305-391e0c4f25f1" />
+<img width="1876" height="865" alt="image" src="https://github.com/user-attachments/assets/4a0cdfdc-8df3-4244-a07f-6705d9f3a76a" />
+<img width="1765" height="799" alt="image" src="https://github.com/user-attachments/assets/14e3762d-5594-44bd-97d4-70a30f18fe99" />
+<img width="1822" height="867" alt="image" src="https://github.com/user-attachments/assets/d7f608d6-4bca-476c-b393-e80595af03e3" />
+
+*
 
 ---
 
@@ -74,5 +80,4 @@ The application will be live at `http://localhost:5173/`.
 **Mohammed Khamis** - *Senior React Developer*
 
 ---
-
-Crafted with 💜 by **Team Linkoo**
+**
