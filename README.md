@@ -1,16 +1,78 @@
-# React + Vite
+# Linkoo - Premium Social Media Platform 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Linkoo** is a state-of-the-art social media application built with the latest web technologies. It offers a seamless, fast, and visually stunning user experience, featuring a fully responsive design that feels native on mobile, tablet, and desktop.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Key Features
 
-## React Compiler
+- **🔐 Robust Authentication**: Secure Sign Up and Sign In flows with full route protection.
+- **📱 Mobile-First Experience**: Optimized layouts for all devices, including a sleek **Mobile Bottom Navigation Bar** for thumb-friendly interaction on smaller screens.
+- **📝 Dynamic Posting**: Create, edit, and delete posts with support for high-quality image uploads.
+- **💬 Advanced Interaction**: Real-time-style comments with support for replies, editing, and deletion.
+- **❤️ Social Engagement**: Like and share posts with live counter updates.
+- **👤 Professional Profile**: Comprehensive user profile management, including post history, "About" section, profile photo updates, and secure password changes.
+- **🔍 Precision Search**: An intelligently aligned search bar that sits perfectly above the feed, allowing users to filter content instantly.
+- **🌓 Adaptive Dark Mode**: A premium dark theme that saves user preferences and provides a comfortable viewing experience.
+- **🔔 Notification System**: Stay updated with a modern dropdown notification center.
+- **👥 Active Contacts**: A streamlined contacts sidebar with status indicators and a custom-styled scrollable interface.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Technology Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Linkoo is built on a high-performance modern tech stack:
+
+- **React 19**: Standard-setting UI library for components and state management.
+- **Vite**: Ultra-fast build tool and development server.
+- **Tailwind CSS v4**: The latest in utility-first CSS for cutting-edge layouts.
+- **HeroUI**: Premium React component library for high-end aesthetics.
+- **TanStack Query (React Query)**: Powerful asynchronous state management and data caching.
+- **React Hook Form & Zod**: Industrial-strength form management and schema-based validation.
+- **React Router DOM**: Seamless client-side navigation.
+- **Axios**: Efficient and reliable API communication.
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to run **Linkoo** on your local machine:
+
+### Prerequisites
+- Node.js (v18.0 or higher)
+- npm or yarn
+
+### Installation
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/mohammed-khamis/linkoo.git
+   ```
+2. **Navigate to the project directory**:
+   ```bash
+   cd linkoo
+   ```
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+4. **Launch the development server**:
+   ```bash
+   npm run dev
+   ```
+
+The application will be live at `http://localhost:5173/`.
+
+---
+
+## 📸 UI Showcase
+
+*(Add your application screenshots here to showcase the design!)*
+
+---
+
+## 👨‍💻 Developed By
+**Mohammed Khamis** - *Senior React Developer*
+
+---
+
+Crafted with 💜 by **Team Linkoo**

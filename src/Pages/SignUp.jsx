@@ -21,12 +21,12 @@ export default function SignUp() {
     const {handleSubmit,register,formState:{errors}} = useForm({
       resolver: zodResolver(schema),
       defaultValues:{
-        name:"Mohammed Khamis",
-        email:"mohammed@gmail.com",
-        password:"Mohammed@123",
-        rePassword:"Mohammed@123",
-        dateOfBirth:'2000-07-12',
-        gender:"male"
+        name:"",
+        email:"",
+        password:"",
+        rePassword:"",
+        dateOfBirth:"",
+        gender:""
       }
     })
 
