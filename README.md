@@ -78,6 +78,9 @@ The application will be live at `http://localhost:5173/`.
 
 <img width="1822" height="867" alt="image" src="https://github.com/user-attachments/assets/d7f608d6-4bca-476c-b393-e80595af03e3" />
 
+<img width="1665" height="790" alt="image" src="https://github.com/user-attachments/assets/1a682760-22fb-4195-a183-9f76c8fd0cfc" />
+
+
 *
 
 ---
